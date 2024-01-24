@@ -1,3 +1,7 @@
 .places__item {
 
 }
+
+.card__image {
+    display: block;
+}
