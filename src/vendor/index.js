@@ -1,3 +1,10 @@
+import './pages/index.css'
+const avatarImage = new URL('./images/avatar.jpg', import.meta.url);
+
+const images = [
+    {name: 'avatar', link: avatarImage}
+]
+
 const cardTemplate = document.querySelector('#card-template').content;
 const cardList = document.querySelector('.places__list');
 
