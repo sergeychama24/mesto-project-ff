@@ -1,9 +1,5 @@
 import './pages/index.css'
-const avatarImage = new URL('./images/avatar.jpg', import.meta.url);
-
-const images = [
-    {name: 'avatar', link: avatarImage}
-]
+import {initialCards} from "./scripts/cards";
 
 const cardTemplate = document.querySelector('#card-template').content;
 const cardList = document.querySelector('.places__list');
@@ -20,5 +16,18 @@ function createCard(dataCard, deleteCard) {
 
     const cardDeleteButton = cardElement.querySelector('.card__delete-button');
     cardDeleteButton.addEventListener('click', function() {
-        deleteCard(cardElement);
-    });
+          deleteCard(cardElement);
+        });
+
+    return cardElement
+}
+
+function deleteCard(cardElement) {
+    cardElement.remove();
+}
+
+initialCards.forEach((dataCard) => {
+    const card = createCard(dataCard, deleteCard);
+
+    cardList.append(card);
+})
