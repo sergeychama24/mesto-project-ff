@@ -10,42 +10,40 @@ initialCards.forEach((dataCard) => {
     cardList.append(card);
 })
 
-const closePopUp = document.querySelectorAll('.popup__close')
 
+// Добавялем слуштелей событий на кнопки
 const editProfileButton = document.querySelector('.profile__edit-button');
-const editProfilePopUp = document.querySelector('.popup_type_edit');
+const editProfilePopup = document.querySelector('.popup_type_edit');
 
-editProfileButton.addEventListener('click', () => {
-    openModal(editProfilePopUp);
-})
+openModal(editProfileButton, editProfilePopup);
 
-closePopUp[0].addEventListener('click', () => {
-    closeModal(editProfilePopUp)
-})
 
 const addNewCardButton = document.querySelector('.profile__add-button');
-const addNewCardPopUp = document.querySelector('.popup_type_new-card');
+const addNewCardPopup = document.querySelector('.popup_type_new-card');
 
-addNewCardButton.addEventListener('click', () => {
-    openModal(addNewCardPopUp);
+openModal(addNewCardButton, addNewCardPopup);
+
+const cardImages = document.querySelectorAll('.card__image');
+const imagePopup = document.querySelector('.popup_type_image')
+
+cardImages.forEach((img) => {
+    openModal(img, imagePopup)
+});
+
+const popUpCloseButtons = document.querySelectorAll('.popup__close');
+const popups = document.querySelectorAll('.popup');
+
+popUpCloseButtons.forEach((el) => {
+    closeModal(el,popups);
 })
 
-closePopUp[1].addEventListener('click', () => {
-    closeModal(addNewCardPopUp)
-})
 
-const cardImage = document.querySelectorAll('.card__image')
-const imagePopUp = document.querySelector('.popup_type_image')
 
-cardImage.forEach((image) => {
-    image.addEventListener('click', () => {
-        openModal(imagePopUp);
-    })
-})
 
-closePopUp[2].addEventListener('click', () => {
-    closeModal(imagePopUp)
-})
+
+
+
+
 
 
 
