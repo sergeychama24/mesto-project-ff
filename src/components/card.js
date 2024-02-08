@@ -1,5 +1,4 @@
 const cardTemplate = document.querySelector('#card-template').content;
-export const cardList = document.querySelector('.places__list');
 
 export function createCard(dataCard, deleteCard, addLikeHandler) {
     const cardElement= cardTemplate.querySelector('.places__item').cloneNode(true);
