@@ -1,13 +1,5 @@
 import './pages/index.css'
 import {initialCards} from "./scripts/cards";
-import userAvatar from "./images/avatar.jpg";
-
-const images = [
-    {name: "User Avatar", link: userAvatar}
-]
-
-const profileImage = document.querySelector(".profile__image");
-profileImage.style.backgroundImage = `url(${userAvatar})`
 
 
 const cardTemplate = document.querySelector('#card-template').content;
