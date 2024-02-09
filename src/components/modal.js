@@ -37,3 +37,13 @@ function handlerOverlayClick(event) {
         openedPopup.classList.remove('popup_is-opened');
     }
 }
+
+
+
+
+
+
+
+
+
+
