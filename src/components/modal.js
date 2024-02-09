@@ -38,6 +38,29 @@ function handlerOverlayClick(event) {
     }
 }
 
+export function changeProfileInfo (formElement, popup) {
+    const nameInput = formElement.elements.name;
+    const jobInput = formElement.elements.description;
+
+    function handleFormSubmit(evt) {
+        evt.preventDefault();
+
+        const nameValue = nameInput.value;
+        const jobValue = jobInput.value;
+
+        const nameDisplay = document.querySelector('.profile__title');
+        const jobDisplay = document.querySelector('.profile__description');
+
+        nameDisplay.textContent = nameValue;
+        jobDisplay.textContent = jobValue;
+
+        popup.classList.remove('popup_is-opened')
+
+    }
+
+    formElement.addEventListener('submit', handleFormSubmit);
+}
+
 
 
 

@@ -1,7 +1,7 @@
 import './pages/index.css'
 import {initialCards} from "./components/cards";
 import {createCard, addLikeHandler, deleteCard} from "./components/card";
-import {openModal, closeModal} from "./components/modal"
+import {openModal, closeModal, changeProfileInfo} from "./components/modal"
 
 const cardList = document.querySelector('.places__list');
 
@@ -37,32 +37,30 @@ popUpCloseButtons.forEach((el) => {
     closeModal(el,popups);
 })
 
-const formElement = document.forms['edit-profile'];
-const nameInput = formElement.elements.name;
-const jobInput = formElement.elements.description;
 
-function handleFormSubmit(evt) {
+const editProfileForm = document.forms['edit-profile'];
+changeProfileInfo(editProfileForm, editProfilePopup);
+
+const addNewCardForm = document.forms['new-place'];
+const placeNameInput = addNewCardForm.elements['place-name'];
+const urlInput = addNewCardForm.elements.link;
+
+function handleAddNewCard(evt) {
     evt.preventDefault();
 
-    const nameValue = nameInput.value;
-    const jobValue = jobInput.value;
+    let dataCard =
+        {
+            name: placeNameInput.value,
+            link: urlInput.value,
+        }
 
-    const nameDisplay = document.querySelector('.profile__title');
-    const jobDisplay = document.querySelector('.profile__description');
+    const card = createCard(dataCard, deleteCard, addLikeHandler);
+    cardList.prepend(card);
 
-    nameDisplay.textContent = nameValue;
-    jobDisplay.textContent = jobValue;
+    placeNameInput.value = ''
+    urlInput.value = ''
 
-    editProfilePopup.classList.remove('popup_is-opened')
-
+    addNewCardPopup.classList.remove('popup_is-opened')
 }
 
-formElement.addEventListener('submit', handleFormSubmit);
-
-
-
-
-
-
-
-
+addNewCardForm.addEventListener('submit', handleAddNewCard);
