@@ -1,12 +1,12 @@
 import './pages/index.css'
 import {initialCards} from "./components/cards";
-import {createCard, addLikeHandler, deleteCard} from "./components/card";
+import {createCard, addLikeHandler, openCard, deleteCard} from "./components/card";
 import {openModal, closeModal, changeProfileInfo} from "./components/modal"
 
 const cardList = document.querySelector('.places__list');
 
 initialCards.forEach((dataCard) => {
-    const card = createCard(dataCard, deleteCard, addLikeHandler);
+    const card = createCard(dataCard, deleteCard, addLikeHandler, openCard);
     cardList.append(card);
 })
 
@@ -22,6 +22,8 @@ const addNewCardButton = document.querySelector('.profile__add-button');
 const addNewCardPopup = document.querySelector('.popup_type_new-card');
 
 openModal(addNewCardButton, addNewCardPopup);
+
+
 
 const cardImages = document.querySelectorAll('.card__image');
 const imagePopup = document.querySelector('.popup_type_image')

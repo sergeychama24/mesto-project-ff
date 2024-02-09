@@ -1,6 +1,7 @@
 export function openModal(button, popup) {
     button.addEventListener('click', () => {
         popup.classList.add('popup_is-opened');
+        popup.classList.toggle('popup_is-animated');
     });
 
     document.addEventListener('click', handlerOverlayClick);
@@ -13,6 +14,7 @@ export function closeModal(closeButton, popups) {
     closeButton.addEventListener('click', () => {
         popups.forEach(popup => {
             popup.classList.remove('popup_is-opened');
+            popup.classList.toggle('popup_is-animated');
         });
 
         document.removeEventListener('keydown', handleEscKeyPress);
@@ -33,8 +35,8 @@ function handleEscKeyPress(event) {
 
 function handlerOverlayClick(event) {
     const openedPopup = document.querySelector('.popup_is-opened');
-    if (event.target === openedPopup) {
-        openedPopup.classList.remove('popup_is-opened');
+    if (event.target === openedPopup) {popup_is-opened
+        openedPopup.classList.remove('');
     }
 }
 
