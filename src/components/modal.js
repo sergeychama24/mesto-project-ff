@@ -36,7 +36,6 @@ function handlerOverlayClick(event) {
 export function changeProfileInfo (formElement, popup) {
     const nameInput = formElement.elements.name;
     const jobInput = formElement.elements.description;
-
     function handleFormSubmit(evt) {
         evt.preventDefault();
 
@@ -60,7 +59,7 @@ export function addNewCard(formElement, popup) {
     const placeNameInput = formElement.elements['place-name'];
     const urlInput = formElement.elements.link;
 
-    function handleAddNewCard(evt) {
+    function handleFormSubmit(evt) {
         evt.preventDefault();
 
         let dataCard =
@@ -79,7 +78,7 @@ export function addNewCard(formElement, popup) {
         closeModal(popup)
     }
 
-    formElement.addEventListener('submit', handleAddNewCard);
+    formElement.addEventListener('submit', handleFormSubmit);
 
 }
 
