@@ -1,7 +1,7 @@
 import {openModal} from "./modal";
 
 const cardTemplate = document.querySelector('#card-template').content;
-const imageTypePopup = document.querySelector('.popup_type_image');
+const imagePopup = document.querySelector('.popup_type_image');
 const popupTitle = document.querySelector('.popup__caption');
 const popupImage = document.querySelector('.popup__image');
 
@@ -47,5 +47,5 @@ export function openCard(cardElement) {
     popupTitle.textContent = cardTitle.textContent;
     popupImage.src = cardImage.src;
     popupImage.alt = cardImage.alt;
-    openModal(imageTypePopup);
+    openModal(imagePopup);
 }

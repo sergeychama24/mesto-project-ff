@@ -1,8 +1,5 @@
 import {createCard, deleteCard, likeCard, openCard} from "./card";
-
-const nameDisplay = document.querySelector('.profile__title');
-const jobDisplay = document.querySelector('.profile__description');
-const cardList = document.querySelector('.places__list');
+import {cardList, nameDisplay, jobDisplay} from '../index'
 
 export function openModal(popup) {
     popup.classList.toggle('popup_is-animated');
@@ -15,7 +12,7 @@ export function openModal(popup) {
 }
 
 export function closeModal(popup) {
-    popup.classList.remove('popup_is-animated');
+    // popup.classList.remove('popup_is-animated');
     popup.classList.remove("popup_is-opened");
 
     document.removeEventListener('keydown', handleEscKeyPress);
