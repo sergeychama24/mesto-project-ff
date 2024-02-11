@@ -1,5 +1,5 @@
 import {createCard, deleteCard, likeCard, openCard} from "./card";
-import {cardList, nameDisplay, jobDisplay} from '../index'
+import {cardList, profileTitle, profileDescription} from '../index'
 
 export function openModal(popup) {
     popup.classList.toggle('popup_is-animated');
@@ -35,9 +35,11 @@ function handlerOverlayClick(event) {
 }
 
 
-export function changeProfileInfo (profileForm, profilePopup) {
-    const nameInput = profileForm.elements.name;
-    const jobInput = profileForm.elements.description;
+export function changeProfileInfo (editProfileForm, editProfilePopup) {
+    const nameInput = editProfileForm.elements.name;
+    const jobInput = editProfileForm.elements.description;
+    nameInput.value = profileTitle.textContent
+    jobInput.value = profileDescription.textContent
 
     function handleProfileSubmit (evt){
         evt.preventDefault();
@@ -45,13 +47,13 @@ export function changeProfileInfo (profileForm, profilePopup) {
         const nameValue = nameInput.value;
         const jobValue = jobInput.value;
 
-        nameDisplay.textContent = nameValue;
-        jobDisplay.textContent = jobValue;
+        profileTitle.textContent = nameValue;
+        profileDescription.textContent = jobValue;
 
-        closeModal(profilePopup)
+        closeModal(editProfilePopup)
     }
 
-    profileForm.addEventListener('submit', handleProfileSubmit);
+    editProfileForm.addEventListener('submit', handleProfileSubmit);
 }
 
 export function addNewCard(addNewCardForm, popup) {

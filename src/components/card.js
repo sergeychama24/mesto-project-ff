@@ -1,10 +1,7 @@
 import {openModal} from "./modal";
+import {imagePopup, popupTitle, popupImage} from '../index'
 
 const cardTemplate = document.querySelector('#card-template').content;
-const imagePopup = document.querySelector('.popup_type_image');
-const popupTitle = document.querySelector('.popup__caption');
-const popupImage = document.querySelector('.popup__image');
-
 
 export function createCard(dataCard, deleteCard, likeCard, openCard) {
     const cardElement= cardTemplate.querySelector('.places__item').cloneNode(true);
