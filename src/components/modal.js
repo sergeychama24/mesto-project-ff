@@ -12,8 +12,11 @@ export function openModal(popup) {
 }
 
 export function closeModal(popup) {
-    // popup.classList.remove('popup_is-animated');
     popup.classList.remove("popup_is-opened");
+    setTimeout(() => {
+        popup.classList.toggle("popup_is-animated");
+    }, 400);
+
 
     document.removeEventListener('keydown', handleEscKeyPress);
     document.removeEventListener('click', handlerOverlayClick);
