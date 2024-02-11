@@ -1,5 +1,5 @@
 import {openModal} from "./modal";
-import {imagePopup, popupTitle, popupImage} from '../index'
+import {showImagePopup, imagePopupTitle, imagePopupImage} from '../index'
 
 const cardTemplate = document.querySelector('#card-template').content;
 
@@ -41,8 +41,8 @@ export function likeCard(likeButton) {
 export function openCard(cardElement) {
     const cardImage = cardElement.querySelector('.card__image');
     const cardTitle = cardElement.querySelector('.card__title');
-    popupTitle.textContent = cardTitle.textContent;
-    popupImage.src = cardImage.src;
-    popupImage.alt = cardImage.alt;
-    openModal(imagePopup);
+    imagePopupTitle.textContent = cardTitle.textContent;
+    imagePopupImage.src = cardImage.src;
+    imagePopupImage.alt = cardImage.alt;
+    openModal(showImagePopup);
 }

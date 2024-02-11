@@ -18,9 +18,9 @@ const addNewCardForm = document.forms['new-place'];
 const addNewCardButton = document.querySelector('.profile__add-button');
 const addNewCardPopup = document.querySelector('.popup_type_new-card');
 
-export const imagePopup = document.querySelector('.popup_type_image');
-export const popupTitle = document.querySelector('.popup__caption');
-export const popupImage = document.querySelector('.popup__image');
+export const showImagePopup = document.querySelector('.popup_type_image');
+export const imagePopupTitle = document.querySelector('.popup__caption');
+export const imagePopupImage = document.querySelector('.popup__image');
 
 const closeButtons = document.querySelectorAll('.popup__close');
 
