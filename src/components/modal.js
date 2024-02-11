@@ -73,6 +73,7 @@ export function addNewCard(addNewCardForm, popup) {
 
         const card = createCard(dataCard, deleteCard, likeCard, openCard);
         cardList.prepend(card);
+        evt.target.reset()
         closeModal(popup);
     }
 
