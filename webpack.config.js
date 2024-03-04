@@ -1,60 +1,59 @@
-const path = require('path'); // подключаем path к конфигу вебпак
-const HtmlWebpackPlugin = require('html-webpack-plugin'); // подключаем html-webpack-plugin
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');// подключаем CleanWebpackPlugin
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const path = require("path"); // подключаем path к конфигу вебпак
+const HtmlWebpackPlugin = require("html-webpack-plugin"); // подключаем html-webpack-plugin
+const { CleanWebpackPlugin } = require("clean-webpack-plugin"); // подключаем CleanWebpackPlugin
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
-    entry: {main: './src/index.js'},
+  entry: { main: "./src/index.js" },
 
-    output: {
-        path: path.resolve(__dirname, 'dist'),
-        filename: 'main.js',
-        publicPath: ''
-    },
+  output: {
+    path: path.resolve(__dirname, "dist"),
+    filename: "main.js",
+    publicPath: "",
+  },
 
-    mode: 'development',
+  mode: "development",
 
-    devServer: {
-        static: path.resolve(__dirname, './dist'),
-        compress: true,
-        port: 8080,
+  devServer: {
+    static: path.resolve(__dirname, "./dist"),
+    compress: true,
+    port: 4040,
 
-        open: true
-    },
+    open: true,
+  },
 
+  module: {
+    rules: [
+      {
+        test: /\.js$/,
+        use: "babel-loader",
+        exclude: /node_modules/,
+      },
 
-    module: {
-        rules: [
-            {
-                test: /\.js$/,
-                use:'babel-loader',
-                exclude: /node_modules/
+      {
+        test: /\.(png|svg|webp|jpg|gif|woff(2)?|eot|ttf|otf)$/,
+        type: "asset/resource",
+      },
 
+      {
+        test: /\.css$/,
+        use: [
+          MiniCssExtractPlugin.loader,
+          {
+            loader: "css-loader",
+            options: { importLoaders: 1 },
+          },
+          "postcss-loader",
+        ],
+      },
+    ],
+  },
 
-            },
-
-            {
-                test: /\.(png|svg|webp|jpg|gif|woff(2)?|eot|ttf|otf)$/,
-                type: 'asset/resource'
-            },
-
-            {
-                test: /\.css$/,
-                use: [MiniCssExtractPlugin.loader, {
-                    loader: 'css-loader',
-                    options: {importLoaders: 1}
-                },
-                    'postcss-loader']
-            }
-        ]
-    },
-
-
-    plugins: [
-        new HtmlWebpackPlugin({
-            template: './src/index.html',
-        }),
-        new CleanWebpackPlugin(),
-        new MiniCssExtractPlugin()
-    ]
-}
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: "./src/index.html",
+    }),
+    new CleanWebpackPlugin(),
+    new MiniCssExtractPlugin(),
+  ],
+};
