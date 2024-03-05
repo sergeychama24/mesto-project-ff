@@ -2,7 +2,7 @@ import './pages/index.css'
 import {initialCards} from "./components/cards";
 import {createCard, deleteCard, likeCard, openCard} from "./components/card";
 import {openModal, closeModal, changeProfileInfo, addNewCard} from "./components/modal"
-
+import {showInputError} from "./components/validation";
 
 
 export const cardList = document.querySelector('.places__list');
@@ -12,7 +12,6 @@ export const profileDescription = document.querySelector('.profile__description'
 export const editProfileForm = document.forms['edit-profile'];
 const editProfilePopup = document.querySelector('.popup_type_edit');
 const editProfileButton = document.querySelector('.profile__edit-button');
-
 
 const addNewCardForm = document.forms['new-place'];
 const addNewCardButton = document.querySelector('.profile__add-button');
@@ -42,3 +41,9 @@ closeButtons.forEach((button) => {
 
 changeProfileInfo(editProfileForm, editProfilePopup);
 addNewCard(addNewCardForm, addNewCardPopup);
+
+//validation//
+
+
+
+console.log(editProfileForm);
