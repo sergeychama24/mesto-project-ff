@@ -2,7 +2,7 @@ import './pages/index.css'
 import {initialCards} from "./components/cards";
 import {createCard, deleteCard, likeCard, openCard} from "./components/card";
 import {openModal, closeModal, changeProfileInfo, addNewCard} from "./components/modal"
-import {showInputError} from "./components/validation";
+import {enableValidation} from "./components/validation";
 
 
 export const cardList = document.querySelector('.places__list');
@@ -42,8 +42,6 @@ closeButtons.forEach((button) => {
 changeProfileInfo(editProfileForm, editProfilePopup);
 addNewCard(addNewCardForm, addNewCardPopup);
 
-//validation//
+//Validation
 
-
-
-console.log(editProfileForm);
+enableValidation();

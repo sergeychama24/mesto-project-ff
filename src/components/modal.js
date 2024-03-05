@@ -1,5 +1,5 @@
 import {createCard, deleteCard, likeCard, openCard} from "./card";
-import {cardList, profileTitle, profileDescription} from '../index'
+import {cardList, profileTitle, profileDescription, editProfileForm} from '../index'
 
 export function openModal(popup) {
     popup.classList.toggle('popup_is-animated');
@@ -79,10 +79,5 @@ export function addNewCard(addNewCardForm, popup) {
 
     addNewCardForm.addEventListener('submit', handleAddNewCard);
 }
-
-
-
-
-
 
 
