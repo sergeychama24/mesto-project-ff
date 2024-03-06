@@ -1,5 +1,6 @@
 .popup__input-error {
     visibility: hidden;
+    padding-top: 5px;
     font-size: 12px;
     color: #FF0000;
 }
