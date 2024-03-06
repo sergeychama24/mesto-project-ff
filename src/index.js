@@ -42,4 +42,5 @@ closeButtons.forEach((button) => {
 changeProfileInfo(editProfileForm, editProfilePopup);
 addNewCard(addNewCardForm, addNewCardPopup);
 
+
 enableValidation();
