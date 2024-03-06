@@ -62,3 +62,12 @@ export const deleteCardRequest = (cardId) => {
         }
     })
 }
+
+export const addLike = (cardId) => {
+    return fetch(`${url}cards/likes/${cardId}`, {
+        method: 'PUT',
+        headers: {
+            authorization: key,
+        }
+    })
+}

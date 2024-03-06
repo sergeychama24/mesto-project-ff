@@ -57,7 +57,6 @@ Promise.all([getInitialCards(), getUser()])
             const newCard = createCard(card, deleteCard, likeCard, openCard, userData._id);
             cardList.append(newCard);
         });
-        console.log(userData._id);
     })
     .catch((error) => {
         console.error('Ошибка при получении данных:', error);

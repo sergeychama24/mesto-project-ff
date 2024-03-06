@@ -1,6 +1,6 @@
 import {openModal} from "./modal";
 import {showImagePopup, imagePopupTitle, imagePopupImage} from '../index'
-import {deleteCardRequest} from "./api";
+import {deleteCardRequest, addLike} from "./api";
 
 const cardTemplate = document.querySelector('#card-template').content;
 
@@ -26,18 +26,17 @@ export function createCard(dataCard, deleteCard, likeCard, openCard, userId) {
         openCard(cardElement)
     })
 
-
-
     const cardDeleteButton = cardElement.querySelector('.card__delete-button');
 
-    if (dataCard.owner._id !== userId) {
-        cardDeleteButton.remove()
+    if (dataCard.owner !== undefined) {
+        if (dataCard.owner._id !== userId) {
+            cardDeleteButton.remove()
+        }
     }
 
     cardDeleteButton.addEventListener('click', function() {
         deleteCardRequest(dataCard._id)
-            .then(res => console.log(res))
-        deleteCard(cardElement);
+        deleteCard(cardElement)
     });
 
 
