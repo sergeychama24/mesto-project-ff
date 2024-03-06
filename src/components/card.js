@@ -1,9 +1,10 @@
 import {openModal} from "./modal";
 import {showImagePopup, imagePopupTitle, imagePopupImage} from '../index'
+import {deleteCardRequest} from "./api";
 
 const cardTemplate = document.querySelector('#card-template').content;
 
-export function createCard(dataCard, deleteCard, likeCard, openCard) {
+export function createCard(dataCard, deleteCard, likeCard, openCard, userId) {
     const cardElement= cardTemplate.querySelector('.places__item').cloneNode(true);
 
     const cardImage = cardElement.querySelector('.card__image');
@@ -12,6 +13,9 @@ export function createCard(dataCard, deleteCard, likeCard, openCard) {
 
     const cardTitle = cardElement.querySelector('.card__title');
     cardTitle.textContent = dataCard.name;
+
+    const cardLikes = cardElement.querySelector('.card__like-counter');
+    cardLikes.textContent = dataCard.likes !== undefined ? dataCard.likes.length : 0;
 
     const likeButton = cardElement.querySelector('.card__like-button');
     likeButton.addEventListener('click', function () {
@@ -22,10 +26,20 @@ export function createCard(dataCard, deleteCard, likeCard, openCard) {
         openCard(cardElement)
     })
 
+
+
     const cardDeleteButton = cardElement.querySelector('.card__delete-button');
+
+    if (dataCard.owner._id !== userId) {
+        cardDeleteButton.remove()
+    }
+
     cardDeleteButton.addEventListener('click', function() {
+        deleteCardRequest(dataCard._id)
+            .then(res => console.log(res))
         deleteCard(cardElement);
     });
+
 
     return cardElement
 }

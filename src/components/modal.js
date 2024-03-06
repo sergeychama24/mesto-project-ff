@@ -1,5 +1,6 @@
 import {createCard, deleteCard, likeCard, openCard} from "./card";
 import {cardList, profileTitle, profileDescription, editProfileForm} from '../index'
+import {getUser, patchUser, postCard} from "./api";
 
 export function openModal(popup) {
     popup.classList.toggle('popup_is-animated');
@@ -41,17 +42,30 @@ function handlerOverlayClick(event) {
 export function changeProfileInfo (editProfileForm, editProfilePopup) {
     const nameInput = editProfileForm.elements.name;
     const jobInput = editProfileForm.elements.description;
-    nameInput.value = profileTitle.textContent
-    jobInput.value = profileDescription.textContent
+
+    getUser()
+        .then((data) => {
+            profileTitle.textContent = data.name;
+            profileDescription.textContent = data.about;
+            nameInput.value = profileTitle.textContent;
+            jobInput.value = profileDescription.textContent;
+        })
 
     function handleProfileSubmit (evt){
         evt.preventDefault();
-
         const nameValue = nameInput.value;
         const jobValue = jobInput.value;
 
+        nameInput.value = profileTitle.textContent;
+        jobInput.value = profileDescription.textContent;
+
         profileTitle.textContent = nameValue;
         profileDescription.textContent = jobValue;
+
+        patchUser(nameValue, jobValue)
+
+        nameInput.value = profileTitle.textContent;
+        jobInput.value = profileDescription.textContent;
 
         closeModal(editProfilePopup)
     }
@@ -62,17 +76,22 @@ export function changeProfileInfo (editProfileForm, editProfilePopup) {
 export function addNewCard(addNewCardForm, popup) {
     const placeNameInput = addNewCardForm.elements['place-name'];
     const urlInput = addNewCardForm.elements.link;
+    const likesCounter = []
 
     function handleAddNewCard (evt) {
         evt.preventDefault();
+
         const dataCard =
             {
                 name: placeNameInput.value,
                 link: urlInput.value,
             }
 
+        postCard(placeNameInput.value, urlInput.value);
+
         const card = createCard(dataCard, deleteCard, likeCard, openCard);
         cardList.prepend(card);
+
         evt.target.reset()
         closeModal(popup);
     }

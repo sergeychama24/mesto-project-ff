@@ -1,8 +1,10 @@
 import './pages/index.css'
-import {initialCards} from "./components/cards";
+// import {initialCards} from "./components/cards";
 import {createCard, deleteCard, likeCard, openCard} from "./components/card";
 import {openModal, closeModal, changeProfileInfo, addNewCard} from "./components/modal"
 import {enableValidation} from "./components/validation";
+import {getInitialCards, getUser} from "./components/api";
+import {data} from "autoprefixer";
 
 
 export const cardList = document.querySelector('.places__list');
@@ -22,11 +24,11 @@ export const imagePopupTitle = document.querySelector('.popup__caption');
 export const imagePopupImage = document.querySelector('.popup__image');
 
 const closeButtons = document.querySelectorAll('.popup__close');
-
-initialCards.forEach((dataCard) => {
-    const newCard = createCard(dataCard, deleteCard, likeCard, openCard);
-    cardList.append(newCard);
-})
+//
+// initialCards.forEach((dataCard) => {
+//     const newCard = createCard(dataCard, deleteCard, likeCard, openCard);
+//     cardList.append(newCard);
+// })
 
 editProfileButton.addEventListener('click', () => {
     openModal(editProfilePopup)
@@ -44,3 +46,19 @@ addNewCard(addNewCardForm, addNewCardPopup);
 
 
 enableValidation();
+
+//validation
+
+
+Promise.all([getInitialCards(), getUser()])
+    .then(([initialCards, userData]) => {
+        // Обработка результатов получения данных о картах и пользователе
+        initialCards.forEach((card) => {
+            const newCard = createCard(card, deleteCard, likeCard, openCard, userData._id);
+            cardList.append(newCard);
+        });
+        console.log(userData._id);
+    })
+    .catch((error) => {
+        console.error('Ошибка при получении данных:', error);
+    });
