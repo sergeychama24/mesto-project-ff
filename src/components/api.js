@@ -1,38 +1,40 @@
-const key = "b67bf0a8-24d4-4db4-88a1-ee0bc39956b1";
-const id = "wff-cohort-8"
-const url = `https://mesto.nomoreparties.co/v1/${id}/`
-
 //Api requests
+const config = {
+   baseURL: 'https://mesto.nomoreparties.co/v1/wff-cohort-8',
+   headers: {
+       authorization: 'b67bf0a8-24d4-4db4-88a1-ee0bc39956b1',
+       'Content-Type': 'application/json'
+   }
+}
 
 export const getInitialCards = () => {
-    return fetch(`${url}/cards`, {
-        headers: {
-            authorization: key,
-        }
+    return fetch(`${config.baseURL}/cards`, {
+        headers: config.headers
     })
-        .then(res => res.json())
+        .then(res => {
+            if (res.ok) {
+                return res.json()
+            }
+            return Promise.reject(`Ошибка: ${res.status}`)
+        })
         .catch((err) => {
             throw new Error(err)
         })
 }
 
+
 export const getUser = () => {
-    return fetch(`${url}/users/me`, {
-        headers: {
-            authorization: key,
-        }
+    return fetch(`${config.baseURL}/users/me`, {
+        headers: config.headers
     })
     .then(res => res.json())
     .catch((err) => {})
 }
 
 export const patchUser = (name, about) => {
-    return fetch(`${url}users/me`, {
+    return fetch(`${config.baseURL}/users/me`, {
         method: 'PATCH',
-        headers: {
-            authorization: key,
-            'Content-Type': 'application/json'
-        },
+        headers: config.headers,
         body: JSON.stringify({
             name: `${name}`,
             about: `${about}`
@@ -41,12 +43,9 @@ export const patchUser = (name, about) => {
 }
 
 export const postCard = (name, link) => {
-    return fetch(`${url}cards`, {
+    return fetch(`${conig.baseURL}/cards`, {
         method: 'POST',
-        headers: {
-            authorization: key,
-            'Content-Type': 'application/json'
-        },
+        headers: config.headers,
         body: JSON.stringify({
             name: `${name}`,
             link: `${link}`,
@@ -55,50 +54,40 @@ export const postCard = (name, link) => {
 }
 
 export const deleteCardRequest = (cardId) => {
-    return fetch(`${url}cards/${cardId}`, {
+    return fetch(`${config.baseURL}/cards/${cardId}`, {
         method: 'DELETE',
-        headers: {
-            authorization: key,
-        }
+        headers: config.headers
     })
 }
 
 export const getCardLikes = (cardId) => {
-    return fetch(`${url}cards/${cardId}`, {
+    return fetch(`${config.baseURL}/cards/${cardId}`, {
         method: 'GET',
-        headers: {
-            authorization: key,
-        }
+        headers: config.headers
     })
         .then(res => res.json())
 }
 
 export const addLikeRequest = (cardId) => {
-    return fetch(`${url}cards/likes/${cardId}`, {
+    return fetch(`${config.baseURL}/cards/likes/${cardId}`, {
         method: 'PUT',
-        headers: {
-            authorization: key,
-        }
+        headers: config.headers
     })
 }
 
 export const removeLikeRequest = (cardId) => {
-    return fetch(`${url}cards/likes/${cardId}`, {
+    return fetch(`${config.baseURL}/cards/likes/${cardId}`, {
         method: 'DELETE',
-        headers: {
-            authorization: key,
-        }
+        headers: config.headers
     })
 }
 
 export const updateAvatar = (link) => {
-    return fetch(`${url}me/avatar`, {
+    return fetch(`${config.baseURL}/users/me/avatar`, {
         method: 'PATCH',
-        headers: {
-            authorization: key,
-        },
+        headers: config.headers,
         body: JSON.stringify({
-            link: link,
+            avatar: link,
         })
     })
 }

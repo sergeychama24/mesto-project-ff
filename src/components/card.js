@@ -52,7 +52,6 @@ export function createCard(dataCard, deleteCard, likeCard, openCard, userId) {
         deleteCard(cardElement, dataCard)
     });
 
-
     return cardElement
 }
 

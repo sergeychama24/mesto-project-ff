@@ -1,6 +1,6 @@
 import {createCard, deleteCard, likeCard, openCard} from "./card";
 import {cardList, profileTitle, profileDescription, editProfileForm} from '../index'
-import {getUser, patchUser, postCard} from "./api";
+import {getUser, patchUser, postCard, updateAvatar} from "./api";
 
 export function openModal(popup) {
     popup.classList.toggle('popup_is-animated');
@@ -76,10 +76,8 @@ export function changeProfileInfo (editProfileForm, editProfilePopup) {
 export function addNewCard(addNewCardForm, popup) {
     const placeNameInput = addNewCardForm.elements['place-name'];
     const urlInput = addNewCardForm.elements.link;
-    const likesCounter = []
 
     function handleAddNewCard (evt) {
-        evt.preventDefault();
 
         const dataCard =
             {
@@ -102,4 +100,21 @@ export function addNewCard(addNewCardForm, popup) {
     addNewCardForm.addEventListener('submit', handleAddNewCard);
 }
 
+export function changeAvatar(changeAvatarForm, popup, avatar) {
+    const urlInput = changeAvatarForm.elements.avatar;
+    function handleAvatarChange(evt) {
+        const avatarLink = urlInput.value;
 
+        updateAvatar(avatarLink).then(
+            (response) => {
+                avatar.src = avatarLink;
+                console.log(avatar)
+            }
+        )
+
+        evt.target.reset()
+        closeModal(popup);
+    }
+
+    changeAvatarForm.addEventListener('submit', handleAvatarChange);
+}

@@ -1,9 +1,9 @@
 import './pages/index.css'
 import {createCard, deleteCard, likeCard, openCard} from "./components/card";
-import {openModal, closeModal, changeProfileInfo, addNewCard} from "./components/modal"
+import {openModal, closeModal, changeProfileInfo, addNewCard, changeAvatar} from "./components/modal"
 import {enableValidation} from "./components/validation";
-import {getInitialCards, getUser} from "./components/api";
-import {data} from "autoprefixer";
+import {getInitialCards, getUser, updateAvatar} from "./components/api";
+
 
 
 export const cardList = document.querySelector('.places__list');
@@ -39,7 +39,9 @@ editProfileButton.addEventListener('click', () => {
     openModal(editProfilePopup)
 });
 
-addNewCardButton.addEventListener('click', () => openModal(addNewCardPopup));
+addNewCardButton.addEventListener('click', () => {
+    openModal(addNewCardPopup)
+});
 
 closeButtons.forEach((button) => {
     const popup = button.closest('.popup');
@@ -48,12 +50,11 @@ closeButtons.forEach((button) => {
 
 changeProfileInfo(editProfileForm, editProfilePopup);
 addNewCard(addNewCardForm, addNewCardPopup);
-
+changeAvatar(editAvatarForm, editAvatarPopup, avatar);
 
 enableValidation();
 
 //validation
-
 
 Promise.all([getInitialCards(), getUser()])
     .then(([initialCards, userData]) => {
