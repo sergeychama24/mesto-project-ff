@@ -1,5 +1,4 @@
 import './pages/index.css'
-// import {initialCards} from "./components/cards";
 import {createCard, deleteCard, likeCard, openCard} from "./components/card";
 import {openModal, closeModal, changeProfileInfo, addNewCard} from "./components/modal"
 import {enableValidation} from "./components/validation";

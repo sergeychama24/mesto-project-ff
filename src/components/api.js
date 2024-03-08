@@ -63,7 +63,17 @@ export const deleteCardRequest = (cardId) => {
     })
 }
 
-export const addLike = (cardId) => {
+export const getCardLikes = (cardId) => {
+    return fetch(`${url}cards/likes/${cardId}`, {
+        method: 'GET',
+        headers: {
+            authorization: key,
+        }
+    })
+        .then(res => res.json())
+}
+
+export const addLikeRequest = (cardId) => {
     return fetch(`${url}cards/likes/${cardId}`, {
         method: 'PUT',
         headers: {
@@ -72,7 +82,7 @@ export const addLike = (cardId) => {
     })
 }
 
-export const removeLike = (cardId) => {
+export const removeLikeRequest = (cardId) => {
     return fetch(`${url}cards/likes/${cardId}`, {
         method: 'DELETE',
         headers: {
