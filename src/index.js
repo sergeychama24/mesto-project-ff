@@ -10,6 +10,12 @@ export const cardList = document.querySelector('.places__list');
 export const profileTitle = document.querySelector('.profile__title');
 export const profileDescription = document.querySelector('.profile__description');
 
+export const profileImage = document.querySelector('.profile__image');
+const avatar = profileImage.querySelector('.avatar__img');
+export const editAvatarForm = document.forms['edit-avatar'];
+const editAvatarPopup = document.querySelector('.popup_type_edit-avatar')
+const editAvatarButton = document.querySelector('.avatar__edit');
+
 export const editProfileForm = document.forms['edit-profile'];
 const editProfilePopup = document.querySelector('.popup_type_edit');
 const editProfileButton = document.querySelector('.profile__edit-button');
@@ -23,11 +29,11 @@ export const imagePopupTitle = document.querySelector('.popup__caption');
 export const imagePopupImage = document.querySelector('.popup__image');
 
 const closeButtons = document.querySelectorAll('.popup__close');
-//
-// initialCards.forEach((dataCard) => {
-//     const newCard = createCard(dataCard, deleteCard, likeCard, openCard);
-//     cardList.append(newCard);
-// })
+
+
+editAvatarButton.addEventListener('click', () => {
+    openModal(editAvatarPopup)
+})
 
 editProfileButton.addEventListener('click', () => {
     openModal(editProfilePopup)
@@ -56,6 +62,7 @@ Promise.all([getInitialCards(), getUser()])
             const newCard = createCard(card, deleteCard, likeCard, openCard, userData._id);
             cardList.append(newCard);
         });
+        avatar.src = userData.avatar
     })
     .catch((error) => {
         console.error('Ошибка при получении данных:', error);

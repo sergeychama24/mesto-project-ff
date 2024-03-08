@@ -1,6 +1,6 @@
 import {openModal} from "./modal";
 import {showImagePopup, imagePopupTitle, imagePopupImage} from '../index'
-import {deleteCardRequest, addLikeRequest, removeLikeRequest} from "./api";
+import {deleteCardRequest, addLikeRequest, removeLikeRequest, getCardLikes, getInitialCards} from "./api";
 
 const cardTemplate = document.querySelector('#card-template').content;
 
@@ -30,12 +30,14 @@ export function createCard(dataCard, deleteCard, likeCard, openCard, userId) {
     //Добавление обработчика на постановку и снятие лайка
     const likeButton = cardElement.querySelector('.card__like-button');
     likeButton.addEventListener('click', function () {
-        likeCard(likeButton)
+        likeCard(likeButton, dataCard, userId, likesCounter)
     })
 
     //Проверка на уже поставленый лайк пользователем для рендера
-    if (dataCard.likes.some(like => like._id === userId)) {
+    if (dataCard.likes !== undefined) {
+        if (dataCard.likes.some(like => like._id === userId)) {
         likeButton.classList.add('card__like-button_is-active');
+        }
     }
 
 
@@ -50,6 +52,7 @@ export function createCard(dataCard, deleteCard, likeCard, openCard, userId) {
         deleteCard(cardElement, dataCard)
     });
 
+
     return cardElement
 }
 
@@ -59,9 +62,22 @@ export function deleteCard(cardElement, dataCard) {
         .then(cardElement.remove())
 }
 
-export function likeCard(likeButton, dataCard) {
-
-    likeButton.classList.toggle('card__like-button_is-active');
+export function likeCard(likeButton, dataCard, userId, likesCounter) {
+    if (likeButton.classList.contains('card__like-button_is-active')) {
+        removeLikeRequest(dataCard._id)
+            .then(res =>res.json())
+            .then(card => {
+                likeButton.classList.toggle('card__like-button_is-active');
+                likesCounter.textContent = card.likes.length;
+            })
+    } else {
+        addLikeRequest(dataCard._id)
+            .then(res =>res.json())
+            .then(card => {
+                likeButton.classList.toggle('card__like-button_is-active');
+                likesCounter.textContent = card.likes.length;
+            })
+    }
 }
 
 export function openCard(cardElement) {

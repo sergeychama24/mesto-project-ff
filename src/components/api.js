@@ -64,7 +64,7 @@ export const deleteCardRequest = (cardId) => {
 }
 
 export const getCardLikes = (cardId) => {
-    return fetch(`${url}cards/likes/${cardId}`, {
+    return fetch(`${url}cards/${cardId}`, {
         method: 'GET',
         headers: {
             authorization: key,
@@ -88,5 +88,17 @@ export const removeLikeRequest = (cardId) => {
         headers: {
             authorization: key,
         }
+    })
+}
+
+export const updateAvatar = (link) => {
+    return fetch(`${url}me/avatar`, {
+        method: 'PATCH',
+        headers: {
+            authorization: key,
+        },
+        body: JSON.stringify({
+            link: link,
+        })
     })
 }

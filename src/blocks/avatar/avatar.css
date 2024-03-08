@@ -1,0 +1,11 @@
+@import url('./__img/avatar__img.css');
+@import url('__overlay/avatar__overlay.css');
+@import url('./__edit/avatar__edit.css');
+
+.avatar {
+    position: relative;
+}
+
+.avatar:hover .avatar__overlay {
+    opacity: 1;
+}

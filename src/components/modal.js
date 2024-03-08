@@ -87,10 +87,13 @@ export function addNewCard(addNewCardForm, popup) {
                 link: urlInput.value,
             }
 
-        postCard(placeNameInput.value, urlInput.value);
+        postCard(placeNameInput.value, urlInput.value).then(
+            (response) => {
+                const card = createCard(dataCard, deleteCard, likeCard, openCard);
+                cardList.prepend(card);
+            }
+        );
 
-        const card = createCard(dataCard, deleteCard, likeCard, openCard);
-        cardList.prepend(card);
 
         evt.target.reset()
         closeModal(popup);
