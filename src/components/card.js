@@ -1,6 +1,6 @@
 import {openModal} from "./modal";
 import {showImagePopup, imagePopupTitle, imagePopupImage} from '../index'
-import {deleteCardRequest, addLike} from "./api";
+import {deleteCardRequest, addLike, removeLike} from "./api";
 
 const cardTemplate = document.querySelector('#card-template').content;
 
@@ -19,8 +19,14 @@ export function createCard(dataCard, deleteCard, likeCard, openCard, userId) {
 
     const likeButton = cardElement.querySelector('.card__like-button');
     likeButton.addEventListener('click', function () {
+
+
+        addLike(dataCard._id)
+
         likeCard(likeButton)
     })
+
+    console.log(dataCard.likes)
 
     cardImage.addEventListener('click', function(){
         openCard(cardElement)
@@ -36,7 +42,8 @@ export function createCard(dataCard, deleteCard, likeCard, openCard, userId) {
 
     cardDeleteButton.addEventListener('click', function() {
         deleteCardRequest(dataCard._id)
-        deleteCard(cardElement)
+            .then(deleteCard(cardElement))
+
     });
 
 

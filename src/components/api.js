@@ -71,3 +71,12 @@ export const addLike = (cardId) => {
         }
     })
 }
+
+export const removeLike = (cardId) => {
+    return fetch(`${url}cards/likes/${cardId}`, {
+        method: 'DELETE',
+        headers: {
+            authorization: key,
+        }
+    })
+}
