@@ -1,3 +1,5 @@
+import {checkResponse} from "../utils/utils";
+
 //Api requests
 const config = {
    baseURL: 'https://mesto.nomoreparties.co/v1/wff-cohort-8',
@@ -11,15 +13,7 @@ export const getInitialCards = () => {
     return fetch(`${config.baseURL}/cards`, {
         headers: config.headers
     })
-        .then(res => {
-            if (res.ok) {
-                return res.json()
-            }
-            return Promise.reject(`Ошибка: ${res.status}`)
-        })
-        .catch((err) => {
-            throw new Error(err)
-        })
+        .then(checkResponse)
 }
 
 
@@ -27,15 +21,7 @@ export const getUser = () => {
     return fetch(`${config.baseURL}/users/me`, {
         headers: config.headers
     })
-        .then(res => {
-            if (res.ok) {
-                return res.json()
-            }
-            return Promise.reject(`Ошибка: ${res.status}`)
-        })
-        .catch((err) => {
-            throw new Error(err)
-        })
+        .then(checkResponse)
 }
 
 export const patchUser = (name, about) => {
@@ -46,7 +32,8 @@ export const patchUser = (name, about) => {
             name: `${name}`,
             about: `${about}`
         })
-    });
+    })
+    .then(checkResponse)
 }
 
 export const postCard = (name, link) => {
@@ -77,9 +64,6 @@ export const getCardLikes = (cardId) => {
                 return res.json()
             }
             return Promise.reject(`Ошибка: ${res.status}`)
-        })
-        .catch((err) => {
-            throw new Error(err)
         })
 }
 

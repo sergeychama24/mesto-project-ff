@@ -2,9 +2,9 @@ import './pages/index.css'
 import {createCard, deleteCard, likeCard, openCard} from "./components/card";
 import {openModal, closeModal, changeProfileInfo, addNewCard, changeAvatar} from "./components/modal"
 import {enableValidation} from "./components/validation";
-import {getInitialCards, getUser, updateAvatar} from "./components/api";
+import {getInitialCards, getUser} from "./components/api";
 
-
+//Объявление элементов DOM
 
 export const cardList = document.querySelector('.places__list');
 export const profileTitle = document.querySelector('.profile__title');
@@ -65,6 +65,3 @@ Promise.all([getInitialCards(), getUser()])
         });
         avatar.src = userData.avatar
     })
-    .catch((error) => {
-        console.error('Ошибка при получении данных:', error);
-    });
