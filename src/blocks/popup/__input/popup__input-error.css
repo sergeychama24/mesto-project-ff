@@ -5,6 +5,6 @@
     color: #FF0000;
 }
 
-.popup__input-error.active {
+.popup__input-error.popup__error-visible {
     visibility: visible;
- }
+}

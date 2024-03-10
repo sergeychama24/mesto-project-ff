@@ -1,7 +1,7 @@
 import './pages/index.css'
 import {createCard, deleteCard, likeCard, openCard} from "./components/card";
 import {openModal, closeModal} from "./components/modal";
-import {enableValidation} from "./components/validation";
+import {enableValidation, validationSettings, clearValidation} from "./components/validation";
 import {getInitialCards, getUser, patchUser, postCard, updateAvatar} from "./components/api";
 import {handleSubmit} from "./utils/utils";
 
@@ -50,7 +50,7 @@ closeButtons.forEach((button) => {
     button.addEventListener('click', () => closeModal(popup));
 });
 
-function changeProfileInfo (editProfileForm, editProfilePopup) {
+function changeProfileInfo (editProfileForm, popup) {
     const nameInput = editProfileForm.elements.name;
     const descriptionInput = editProfileForm.elements.description;
 
@@ -75,7 +75,8 @@ function changeProfileInfo (editProfileForm, editProfilePopup) {
                 })
                 .catch((err) => console.error(err))
                 .finally(() => {
-                    closeModal(editProfilePopup)
+                    closeModal(popup)
+                    clearValidation(popup, validationSettings)
                 })
         }
         handleSubmit(makeRequest, evt);
@@ -96,7 +97,11 @@ function addNewCard(addNewCardForm, popup) {
                 cardList.prepend(newCard)
             })
                 .catch(error => console.error(error))
-                .finally(()=> closeModal(popup))
+                .finally(()=> {
+                closeModal(popup)
+                clearValidation(popup, validationSettings)
+                }
+        )
         }
         handleSubmit(makeRequest, evt)
     }
@@ -125,7 +130,7 @@ changeProfileInfo(editProfileForm, editProfilePopup)
 addNewCard(addNewCardForm, addNewCardPopup);
 changeAvatar(editAvatarForm, editAvatarPopup);
 
-enableValidation();
+enableValidation(validationSettings);
 
 Promise.all([getInitialCards(), getUser()])
     .then(([initialCards, userData]) => {
