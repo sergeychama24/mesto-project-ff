@@ -9,84 +9,46 @@ const config = {
    }
 }
 
+function request(endpoint, method = 'GET', body) {
+    const url = `${config.baseURL}/${endpoint}`;
+    const options = {
+        method,
+        headers: config.headers,
+        body: body ? JSON.stringify(body) : undefined,
+    }
+
+    return fetch(url, options).then(checkResponse)
+}
+
 export const getInitialCards = () => {
-    return fetch(`${config.baseURL}/cards`, {
-        headers: config.headers
-    })
-        .then(checkResponse)
+    return request('cards');
 }
 
 
 export const getUser = () => {
-    return fetch(`${config.baseURL}/users/me`, {
-        headers: config.headers
-    })
-        .then(checkResponse)
+    return request('users/me');
 }
 
 export const patchUser = (name, about) => {
-    return fetch(`${config.baseURL}/users/me`, {
-        method: 'PATCH',
-        headers: config.headers,
-        body: JSON.stringify({
-            name: `${name}`,
-            about: `${about}`
-        })
-    })
-    .then(checkResponse)
+    return request('users/me', 'PATCH', { name, about});
 }
 
 export const postCard = (name, link) => {
-    return fetch(`${config.baseURL}/cards`, {
-        method: 'POST',
-        headers: config.headers,
-        body: JSON.stringify({
-            name: `${name}`,
-            link: `${link}`,
-        })
-    })
+    return request('cards', 'POST', { name, link });
 }
 
 export const deleteCardRequest = (cardId) => {
-    return fetch(`${config.baseURL}/cards/${cardId}`, {
-        method: 'DELETE',
-        headers: config.headers
-    })
-}
-
-export const getCardLikes = (cardId) => {
-    return fetch(`${config.baseURL}/cards/${cardId}`, {
-        method: 'GET',
-        headers: config.headers
-    })
-        .then(res => {
-            if (res.ok) {
-                return res.json()
-            }
-            return Promise.reject(`Ошибка: ${res.status}`)
-        })
+    return request(`cards/${cardId}`, 'DELETE')
 }
 
 export const addLikeRequest = (cardId) => {
-    return fetch(`${config.baseURL}/cards/likes/${cardId}`, {
-        method: 'PUT',
-        headers: config.headers
-    })
+    return request(`cards/likes/${cardId}`, 'PUT');
 }
 
 export const removeLikeRequest = (cardId) => {
-    return fetch(`${config.baseURL}/cards/likes/${cardId}`, {
-        method: 'DELETE',
-        headers: config.headers
-    })
+    return request(`cards/likes/${cardId}`, 'DELETE');
 }
 
 export const updateAvatar = (link) => {
-    return fetch(`${config.baseURL}/users/me/avatar`, {
-        method: 'PATCH',
-        headers: config.headers,
-        body: JSON.stringify({
-            avatar: link,
-        })
-    })
+    return request('users/me/avatar', 'PATCH', { avatar: link });
 }
