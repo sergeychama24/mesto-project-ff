@@ -45,8 +45,6 @@ addNewCardButton.addEventListener('click', () => {
     openModal(addNewCardPopup)
 });
 
-
-
 closeButtons.forEach((button) => {
     const popup = button.closest('.popup');
     button.addEventListener('click', () => closeModal(popup));
@@ -97,6 +95,8 @@ function addNewCard(addNewCardForm, popup) {
                 const newCard = createCard(cardData, deleteCard, likeCard, openCard, userData._id)
                 cardList.prepend(newCard)
             })
+                .catch(error => console.error(error))
+                .finally(()=> closeModal(popup))
         }
         handleSubmit(makeRequest, evt)
     }
