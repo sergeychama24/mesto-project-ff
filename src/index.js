@@ -1,7 +1,7 @@
 import './pages/index.css'
 import {createCard, deleteCard, likeCard} from "./components/card";
 import {openModal, closeModal} from "./components/modal";
-import {enableValidation, validationSettings, clearValidation} from "./components/validation";
+import {clearValidation, enableValidation, validationSettings} from "./components/validation";
 import {getInitialCards, getUser, patchUser, postCard, updateAvatar} from "./components/api";
 import {handleSubmit} from "./utils/utils";
 
@@ -45,11 +45,9 @@ function openCard(cardElement) {
     openModal(showImagePopup);
 }
 
-
 function updateEditProfileFormFields(userData) {
     profileTitle.textContent = userData.name;
     profileDescription.textContent = userData.about;
-
 }
 
 editAvatarButton.addEventListener('click', () => {
@@ -59,6 +57,7 @@ editAvatarButton.addEventListener('click', () => {
 editProfileButton.addEventListener('click', () => {
     nameInput.value =  profileTitle.textContent;
     descriptionInput.value = profileDescription.textContent;
+    clearValidation(editProfileForm, validationSettings)
     openModal(editProfilePopup)
 });
 
@@ -72,7 +71,6 @@ closeButtons.forEach((button) => {
 });
 
 function changeProfileInfo (editProfileForm, popup) {
-
     function handleProfileFormSubmit(evt) {
         function makeRequest() {
             return patchUser(nameInput.value, descriptionInput.value)
@@ -90,25 +88,22 @@ function addNewCard(addNewCardForm, popup) {
     const placeNameInput = addNewCardForm.elements['place-name'];
     const urlInput = addNewCardForm.elements.link;
 
-
     function handleAddNewCard(evt) {
         function makeRequest() {
             return postCard(placeNameInput.value, urlInput.value)
-            .then((cardData,) => {
-                const newCard = createCard(cardData, deleteCard, likeCard, openCard, userData._id)
+            .then((cardData) => {
+                const newCard = createCard(cardData, deleteCard, likeCard, openCard, cardData.owner._id)
                 cardList.prepend(newCard)
                 closeModal(popup)
             })
         }
         handleSubmit(makeRequest, evt)
     }
-
     addNewCardForm.addEventListener('submit', handleAddNewCard);
 }
 
 function changeAvatar(formElement, popup) {
     const urlInput = formElement.elements.avatar;
-
     function handleProfileFormSubmit(evt) {
         function makeRequest() {
             return updateAvatar(urlInput.value)
@@ -136,9 +131,9 @@ Promise.all([getInitialCards(), getUser()])
             cardList.append(newCard);
         });
         userId = userData._id;
-        console.log(userId);
         avatar.src = userData.avatar
         updateEditProfileFormFields(userData)
     })
     .catch((error) => console.error(error));
 
+//Спасибо за ревью и полезные советы! *_*

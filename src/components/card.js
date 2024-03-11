@@ -1,5 +1,3 @@
-import {openModal} from "./modal";
-import {showImagePopup, imagePopupTitle, imagePopupImage} from '../index'
 import {deleteCardRequest, addLikeRequest, removeLikeRequest} from "./api";
 
 const cardTemplate = document.querySelector('#card-template').content;
