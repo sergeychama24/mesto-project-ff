@@ -53,7 +53,8 @@ export function createCard(dataCard, deleteCard, likeCard, openCard, userId) {
 //Функция удаления карточки
 export function deleteCard(cardElement, dataCard) {
     deleteCardRequest(dataCard._id)
-        .then(cardElement.remove())
+        .then(() => cardElement.remove())
+        .catch(err => console.error(err));
 }
 
 export function likeCard(likeButton, dataCard, userId, likesCounter) {
@@ -72,13 +73,4 @@ export function likeCard(likeButton, dataCard, userId, likesCounter) {
             })
             .catch(err => console.error(err));
     }
-}
-
-export function openCard(cardElement) {
-    const cardImage = cardElement.querySelector('.card__image');
-    const cardTitle = cardElement.querySelector('.card__title');
-    imagePopupTitle.textContent = cardTitle.textContent;
-    imagePopupImage.src = cardImage.src;
-    imagePopupImage.alt = cardImage.alt;
-    openModal(showImagePopup);
 }

@@ -1,10 +1,10 @@
 .popup__input-error {
-    visibility: hidden;
+    display: none;
     padding-top: 5px;
     font-size: 12px;
     color: #FF0000;
 }
 
 .popup__input-error.popup__error-visible {
-    visibility: visible;
+    display: block;
 }

@@ -1,5 +1,5 @@
 import './pages/index.css'
-import {createCard, deleteCard, likeCard, openCard} from "./components/card";
+import {createCard, deleteCard, likeCard} from "./components/card";
 import {openModal, closeModal} from "./components/modal";
 import {enableValidation, validationSettings, clearValidation} from "./components/validation";
 import {getInitialCards, getUser, patchUser, postCard, updateAvatar} from "./components/api";
@@ -32,12 +32,33 @@ export const imagePopupImage = document.querySelector('.popup__image');
 
 const closeButtons = document.querySelectorAll('.popup__close');
 
+const nameInput = editProfileForm.elements.name;
+const descriptionInput = editProfileForm.elements.description;
+let userId;
+
+function openCard(cardElement) {
+    const cardImage = cardElement.querySelector('.card__image');
+    const cardTitle = cardElement.querySelector('.card__title');
+    imagePopupTitle.textContent = cardTitle.textContent;
+    imagePopupImage.src = cardImage.src;
+    imagePopupImage.alt = cardImage.alt;
+    openModal(showImagePopup);
+}
+
+
+function updateEditProfileFormFields(userData) {
+    profileTitle.textContent = userData.name;
+    profileDescription.textContent = userData.about;
+
+}
 
 editAvatarButton.addEventListener('click', () => {
     openModal(editAvatarPopup)
 })
 
 editProfileButton.addEventListener('click', () => {
+    nameInput.value =  profileTitle.textContent;
+    descriptionInput.value = profileDescription.textContent;
     openModal(editProfilePopup)
 });
 
@@ -51,32 +72,13 @@ closeButtons.forEach((button) => {
 });
 
 function changeProfileInfo (editProfileForm, popup) {
-    const nameInput = editProfileForm.elements.name;
-    const descriptionInput = editProfileForm.elements.description;
-
-    function updateFormFields(userData) {
-        profileTitle.textContent = userData.name;
-        profileDescription.textContent = userData.about;
-        nameInput.value = userData.name;
-        descriptionInput.value = userData.about;
-    }
-
-    getUser()
-        .then((userData) => {
-            updateFormFields(userData)
-        })
-        .catch(error => console.error(error))
 
     function handleProfileFormSubmit(evt) {
         function makeRequest() {
             return patchUser(nameInput.value, descriptionInput.value)
                 .then((userData) => {
-                    updateFormFields(userData)
-                })
-                .catch((err) => console.error(err))
-                .finally(() => {
+                    updateEditProfileFormFields(userData)
                     closeModal(popup)
-                    clearValidation(popup, validationSettings)
                 })
         }
         handleSubmit(makeRequest, evt);
@@ -91,17 +93,12 @@ function addNewCard(addNewCardForm, popup) {
 
     function handleAddNewCard(evt) {
         function makeRequest() {
-            return Promise.all([postCard(placeNameInput.value, urlInput.value), getUser()])
-            .then(([cardData, userData]) => {
+            return postCard(placeNameInput.value, urlInput.value)
+            .then((cardData,) => {
                 const newCard = createCard(cardData, deleteCard, likeCard, openCard, userData._id)
                 cardList.prepend(newCard)
-            })
-                .catch(error => console.error(error))
-                .finally(()=> {
                 closeModal(popup)
-                clearValidation(popup, validationSettings)
-                }
-        )
+            })
         }
         handleSubmit(makeRequest, evt)
     }
@@ -117,9 +114,8 @@ function changeAvatar(formElement, popup) {
             return updateAvatar(urlInput.value)
                 .then((res) => {
                     avatar.src = res.avatar;
+                    closeModal(popup)
                 })
-                .catch((err) => console.error(err))
-                .finally(() => closeModal(popup))
         }
         handleSubmit(makeRequest, evt);
     }
@@ -139,6 +135,10 @@ Promise.all([getInitialCards(), getUser()])
             const newCard = createCard(cardData, deleteCard, likeCard, openCard, userData._id);
             cardList.append(newCard);
         });
+        userId = userData._id;
+        console.log(userId);
         avatar.src = userData.avatar
+        updateEditProfileFormFields(userData)
     })
     .catch((error) => console.error(error));
+
