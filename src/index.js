@@ -135,5 +135,3 @@ Promise.all([getInitialCards(), getUser()])
         updateEditProfileFormFields(userData)
     })
     .catch((error) => console.error(error));
-
-//Спасибо за ревью и полезные советы! *_*
